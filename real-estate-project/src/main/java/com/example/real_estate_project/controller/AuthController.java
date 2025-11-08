@@ -23,7 +23,7 @@ public class AuthController {
         return "dashboard";
     }
 
-    @GetMapping("/register")
+    @GetMapping({"/", "/register"})
     public String registerForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             for (var auth : authentication.getAuthorities()) {
