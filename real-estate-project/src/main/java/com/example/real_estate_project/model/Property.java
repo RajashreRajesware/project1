@@ -19,14 +19,14 @@ public class Property {
     private String title;
     private String description;
     private Double price;
-    private String type; // Sale or Rent
+    private String type;
     private String location;
     private String imageUrl;
-    private String status; // PENDING or APPROVED
+    private String status;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id") // ✅ clearer and safer than user_id
+    @JoinColumn(name = "owner_id")
     private User owner;
 }

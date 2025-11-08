@@ -37,9 +37,6 @@ class PropertyServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: savePropertyWithImage()
-    // --------------------------------------------------
     @Test
     void testSavePropertyWithImage_Success() throws IOException {
         Property property = new Property();
@@ -57,9 +54,7 @@ class PropertyServiceTest {
         assertTrue(property.getImageUrl().contains("/uploads/"));
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: saveProperty()
-    // --------------------------------------------------
+
     @Test
     void testSaveProperty_ShouldSaveOwnerAndProperty() {
         Property property = new Property();
@@ -72,9 +67,7 @@ class PropertyServiceTest {
         verify(propertyRepository, times(1)).save(property);
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: getPendingProperties()
-    // --------------------------------------------------
+
     @Test
     void testGetPendingProperties() {
         Property p1 = new Property();
@@ -87,9 +80,7 @@ class PropertyServiceTest {
         assertEquals("PENDING", result.get(0).getStatus());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: getAllApprovedProperties()
-    // --------------------------------------------------
+
     @Test
     void testGetAllApprovedProperties() {
         Property p1 = new Property();
@@ -102,9 +93,7 @@ class PropertyServiceTest {
         assertEquals("APPROVED", result.get(0).getStatus());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: getById()
-    // --------------------------------------------------
+
     @Test
     void testGetById_Found() {
         Property property = new Property();
@@ -124,9 +113,7 @@ class PropertyServiceTest {
         assertNull(result);
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: updateStatus()
-    // --------------------------------------------------
+
     @Test
     void testUpdateStatus_Success() {
         Property property = new Property();
@@ -147,14 +134,12 @@ class PropertyServiceTest {
 
         boolean result = propertyService.updatePropertyStatus(100L, "APPROVED");
 
-        assertFalse(result);  // ✅ Expect false, not exception
+        assertFalse(result);
         verify(propertyRepository, never()).save(any());
     }
 
 
-    // --------------------------------------------------
-    // ✅ TEST: approveProperty()
-    // --------------------------------------------------
+
     @Test
     void testApproveProperty_WhenFound() {
         Property property = new Property();
@@ -176,9 +161,7 @@ class PropertyServiceTest {
         verify(propertyRepository, never()).save(any());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: getAllProperties()
-    // --------------------------------------------------
+
     @Test
     void testGetAllProperties() {
         when(propertyRepository.findAll()).thenReturn(List.of(new Property(), new Property()));
@@ -186,27 +169,21 @@ class PropertyServiceTest {
         assertEquals(2, result.size());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: deleteProperty()
-    // --------------------------------------------------
+
     @Test
     void testDeleteProperty() {
         propertyService.deleteProperty(1L);
         verify(propertyRepository, times(1)).deleteById(1L);
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: countAll()
-    // --------------------------------------------------
+
     @Test
     void testCountAll() {
         when(propertyRepository.count()).thenReturn(5L);
         assertEquals(5L, propertyService.countAll());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: searchProperties()
-    // --------------------------------------------------
+
     @Test
     void testSearchProperties() {
         when(propertyRepository.findByFilters("Chennai", 50000.0, "Apartment"))

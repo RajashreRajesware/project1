@@ -24,12 +24,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * ✅ Fully functional AdminController test
- * Spring Boot 3.5.x + Java 17
- */
+
 @WebMvcTest(AdminController.class)
-@AutoConfigureMockMvc(addFilters = false) // Disable Spring Security filters for testing
+@AutoConfigureMockMvc(addFilters = false)
 class AdminControllerTest {
 
     @Autowired
@@ -49,9 +46,7 @@ class AdminControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/dashboard
-    // ----------------------------------------------------
+
     @Test
     void testShowDashboard() throws Exception {
         List<Property> mockProperties = Arrays.asList(new Property(), new Property());
@@ -69,9 +64,7 @@ class AdminControllerTest {
                 .andExpect(view().name("admin-dashboard"));
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/users (GET)
-    // ----------------------------------------------------
+
     @Test
     void testViewUsers() throws Exception {
         List<User> users = Collections.singletonList(new User());
@@ -83,9 +76,7 @@ class AdminControllerTest {
                 .andExpect(view().name("admin-users"));
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/users/edit/{id}
-    // ----------------------------------------------------
+
     @Test
     void testEditUserForm() throws Exception {
         User mockUser = new User();
@@ -100,9 +91,7 @@ class AdminControllerTest {
                 .andExpect(view().name("edit-user"));
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/users/update (POST)
-    // ----------------------------------------------------
+
     @Test
     void testUpdateUser() throws Exception {
         mockMvc.perform(post("/admin/users/update")
@@ -115,9 +104,7 @@ class AdminControllerTest {
         verify(userService, times(1)).updateUser(any(User.class));
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/users/delete/{id} (POST)
-    // ----------------------------------------------------
+
     @Test
     void testDeleteUser() throws Exception {
         mockMvc.perform(post("/admin/users/delete/5"))
@@ -127,9 +114,7 @@ class AdminControllerTest {
         verify(userService, times(1)).deleteUser(5L);
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/properties (GET)
-    // ----------------------------------------------------
+
     @Test
     void testViewProperties() throws Exception {
         when(propertyService.getAllProperties()).thenReturn(Collections.singletonList(new Property()));
@@ -140,9 +125,7 @@ class AdminControllerTest {
                 .andExpect(view().name("admin-properties"));
     }
 
-    // ----------------------------------------------------
-    // ✅ /admin/properties/approve/{id}
-    // ----------------------------------------------------
+
     @Test
     void testApproveProperty() throws Exception {
         mockMvc.perform(get("/admin/properties/approve/1"))
@@ -162,9 +145,7 @@ class AdminControllerTest {
     }
 
 
-    // ----------------------------------------------------
-    // ✅ /admin/properties/delete/{id}
-    // ----------------------------------------------------
+
     @Test
     void testDeleteProperty() throws Exception {
         mockMvc.perform(get("/admin/properties/delete/3"))

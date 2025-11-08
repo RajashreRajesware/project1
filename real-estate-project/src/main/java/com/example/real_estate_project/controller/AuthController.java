@@ -16,14 +16,13 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // ✅ Customer Dashboard
+
     @GetMapping("/dashboard")
     public String userDashboard(Model model, Authentication authentication) {
         model.addAttribute("userEmail", authentication.getName());
         return "dashboard";
     }
 
-    // ✅ Show Register Page (redirect logged-in users)
     @GetMapping("/register")
     public String registerForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -40,23 +39,21 @@ public class AuthController {
         return "register";
     }
 
-    // ✅ Handle Registration
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
-        // Ensure role prefix consistency
+
         if (user.getRole() == null || user.getRole().isEmpty()) {
-            user.setRole("ROLE_CUSTOMER"); // Default role
+            user.setRole("ROLE_CUSTOMER");
         } else if (!user.getRole().startsWith("ROLE_")) {
             user.setRole("ROLE_" + user.getRole().toUpperCase());
         }
 
-        // Delegate to service (which should encode password)
         userService.registerUser(user);
 
         return "redirect:/login";
     }
 
-    // ✅ Login Page (redirect logged-in users to proper dashboards)
+
     @GetMapping("/login")
     public String loginPage(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {

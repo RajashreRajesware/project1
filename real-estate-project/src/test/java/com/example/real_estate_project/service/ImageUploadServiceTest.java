@@ -33,9 +33,7 @@ class ImageUploadServiceTest {
         when(cloudinary.uploader()).thenReturn(uploader);
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: uploadImage() - Success
-    // --------------------------------------------------
+
     @Test
     void testUploadImage_Success() throws Exception {
         byte[] fileBytes = "fake image bytes".getBytes();
@@ -50,9 +48,7 @@ class ImageUploadServiceTest {
         verify(uploader, times(1)).upload(eq(fileBytes), anyMap());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: uploadImage() - Empty File
-    // --------------------------------------------------
+
     @Test
     void testUploadImage_EmptyFile_ThrowsException() throws Exception {
         when(file.isEmpty()).thenReturn(true);
@@ -63,9 +59,7 @@ class ImageUploadServiceTest {
         verify(uploader, never()).upload(any(), anyMap());
     }
 
-    // --------------------------------------------------
-    // ✅ TEST: uploadImage() - Upload Fails
-    // --------------------------------------------------
+
     @Test
     void testUploadImage_UploadFails_ThrowsIOException() throws Exception {
         byte[] fileBytes = "data".getBytes();

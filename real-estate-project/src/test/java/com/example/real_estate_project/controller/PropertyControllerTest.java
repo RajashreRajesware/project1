@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "user@example.com", roles = "USER")  // ✅ Added to simulate logged-in user
+@WithMockUser(username = "user@example.com", roles = "USER")
 @WebMvcTest(PropertyController.class)
 @AutoConfigureMockMvc(addFilters = true)
 class PropertyControllerTest {
@@ -178,7 +178,7 @@ class PropertyControllerTest {
 
         when(propertyService.getById(1L)).thenReturn(existing);
         when(imageUploadService.uploadImage(any())).thenReturn("updated.jpg");
-        when(userRepository.save(any(User.class))).thenReturn(existing.getOwner()); // ✅ mock save
+        when(userRepository.save(any(User.class))).thenReturn(existing.getOwner());
 
         mockMvc.perform(multipart("/properties/update")
                         .file(mockFile)
@@ -190,8 +190,8 @@ class PropertyControllerTest {
                         .param("location", "Chennai")
                         .param("owner.fullName", "John Doe")
                         .param("owner.email", "john@example.com")
-                        .with(user("user@example.com").roles("USER")) // ✅ simulate authenticated user
-                        .with(csrf())) // ✅ include CSRF token for POST
+                        .with(user("user@example.com").roles("USER"))
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/properties/list"));
 

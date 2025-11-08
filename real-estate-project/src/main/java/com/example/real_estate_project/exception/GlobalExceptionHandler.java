@@ -10,28 +10,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
-/**
- * ✅ Global exception handler for the entire application.
- * This will catch exceptions thrown from any @Controller class.
- */
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * Handles generic exceptions (fallback for all unexpected errors).
-     */
+
     @ExceptionHandler(Exception.class)
     public ModelAndView handleGeneralException(Exception ex) {
-        ModelAndView mav = new ModelAndView("error"); // view name (error.html)
+        ModelAndView mav = new ModelAndView("error");
         mav.addObject("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         mav.addObject("error", "Unexpected Error");
         mav.addObject("message", ex.getMessage());
         return mav;
     }
 
-    /**
-     * Handles IO exceptions (like image upload failures).
-     */
+
     @ExceptionHandler(IOException.class)
     public ModelAndView handleIOException(IOException ex) {
         ModelAndView mav = new ModelAndView("error");
@@ -41,9 +34,7 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    /**
-     * Handles data integrity violations (like foreign key constraint errors).
-     */
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ModelAndView handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         ModelAndView mav = new ModelAndView("error");
@@ -53,9 +44,7 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    /**
-     * Handles oversized file uploads.
-     */
+
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ModelAndView handleMaxUploadSize(MaxUploadSizeExceededException ex) {
         ModelAndView mav = new ModelAndView("error");
@@ -65,9 +54,7 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    /**
-     * Handles runtime exceptions (common app-level issues).
-     */
+
     @ExceptionHandler(RuntimeException.class)
     public ModelAndView handleRuntimeException(RuntimeException ex) {
         ModelAndView mav = new ModelAndView("error");

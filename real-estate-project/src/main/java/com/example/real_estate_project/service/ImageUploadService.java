@@ -25,6 +25,6 @@ public class ImageUploadService {
         Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
                 ObjectUtils.asMap("folder", "realestate_project/properties"));
 
-        return uploadResult.get("secure_url").toString(); // ✅ Cloud URL
+        return uploadResult.get("secure_url").toString();
     }
 }

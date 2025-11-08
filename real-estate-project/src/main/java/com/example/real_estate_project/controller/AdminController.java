@@ -20,7 +20,6 @@ public class AdminController {
     private final PropertyService propertyService;
     private final UserService userService;
 
-    // ✅ Dashboard
     @GetMapping("/dashboard")
     public String showDashboard(Model model, Authentication authentication) {
         List<Property> allProperties = propertyService.getAllProperties();
@@ -32,14 +31,13 @@ public class AdminController {
         return "admin-dashboard";
     }
 
-    // ✅ View Users
+
     @GetMapping("/users")
     public String viewUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin-users";
     }
 
-    // ✅ Edit User Form
     @GetMapping("/users/edit/{id}")
     public String editUserForm(@PathVariable Long id, Model model) {
         User user = userService.getById(id);
@@ -47,14 +45,14 @@ public class AdminController {
         return "edit-user";
     }
 
-    // ✅ Save Updated User
+
     @PostMapping("/users/update")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/admin/users";
     }
 
-    // ✅ Delete User
+
     @PostMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
@@ -62,23 +60,22 @@ public class AdminController {
     }
 
 
-    // ✅ View All Properties
+
     @GetMapping("/properties")
     public String viewProperties(Model model) {
         model.addAttribute("properties", propertyService.getAllProperties());
         return "admin-properties";
     }
 
-    // ✅ Approve / Reject / Delete Property
     @GetMapping("/properties/approve/{id}")
     public String approveProperty(@PathVariable Long id) {
-        propertyService.updatePropertyStatus(id, "APPROVED"); // ✅ correct method name
+        propertyService.updatePropertyStatus(id, "APPROVED");
         return "redirect:/admin/properties";
     }
 
     @GetMapping("/properties/reject/{id}")
     public String rejectProperty(@PathVariable Long id) {
-        propertyService.updatePropertyStatus(id, "REJECTED"); // ✅ correct method name
+        propertyService.updatePropertyStatus(id, "REJECTED");
         return "redirect:/admin/properties";
     }
 

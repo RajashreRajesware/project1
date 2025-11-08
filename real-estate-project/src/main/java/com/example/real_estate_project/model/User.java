@@ -18,12 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    private String name;
+
     private  String fullName;
     private String email;
     private String password;
 
-    private String role; // "ROLE_ADMIN" or "ROLE_CUSTOMER"
+    private String role;
 
 
 }

@@ -28,13 +28,12 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-    // ✅ Password encoder
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ Authentication provider setup
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -43,17 +42,15 @@ public class SecurityConfig {
         return provider;
     }
 
-    // ✅ Authentication manager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-    // ✅ Role-based redirect handler
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return (HttpServletRequest request, HttpServletResponse response, Authentication authentication) -> {
-            String redirectUrl = "/dashboard"; // Default for customers
+            String redirectUrl = "/dashboard";
 
             for (var authority : authentication.getAuthorities()) {
                 String role = authority.getAuthority();
@@ -70,17 +67,17 @@ public class SecurityConfig {
         };
     }
 
-    // ✅ Main security configuration
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Disable CSRF (for development — enable later for form security)
+
                 .csrf(csrf -> csrf.disable())
 
-                // Register authentication provider
+
                 .authenticationProvider(authenticationProvider())
 
-                // Authorization rules
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/register",
@@ -88,7 +85,7 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
-                                "/uploads/**", // ✅ add this if you serve images from file system
+                                "/uploads/**",
                                 "/",
                                 "/home"
                         ).permitAll()
@@ -96,7 +93,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-                // ✅ Login configuration
+
                 .formLogin(login -> login
                         .loginPage("/login")
                         .usernameParameter("email")
@@ -106,7 +103,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
 
-                // ✅ Logout configuration
+
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/login?logout")

@@ -30,18 +30,16 @@
     justify-content: center;
 }
 
-/* Center single property card */
+
 .grid:has(.card:only-child) {
     justify-content: center;
 }
 
-/* Limit card width for single result */
 .card:only-child {
     max-width: 400px;
     margin: 0 auto;
 }
 
-/* Slightly taller but proportional image */
 .card img {
     width: 100%;
     height: 230px;
@@ -147,7 +145,7 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive fix for single card */
+
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;

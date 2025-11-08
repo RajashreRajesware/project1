@@ -36,13 +36,15 @@ public class PropertyController {
             @RequestParam(required = false) String type,
             Model model) {
 
-        // Normalize empty strings
+
         location = (location != null && !location.trim().isEmpty()) ? location.trim() : null;
         type = (type != null && !type.trim().isEmpty()) ? type.trim() : null;
 
         List<Property> properties;
 
-        // If any filter is applied
+
+
+
         if (location != null || price != null || type != null) {
             properties = propertyService.searchProperties(location, price, type);
         } else {
@@ -64,7 +66,7 @@ public class PropertyController {
     @GetMapping("/form")
     public String propertyForm(Model model) {
         Property property = new Property();
-        property.setPrice(null); // ✅ prevents showing 0.0 in input box
+        property.setPrice(null);
         model.addAttribute("property", property);
         return "property-form";
     }
@@ -76,16 +78,16 @@ public class PropertyController {
     @GetMapping("/add")
     public String showAddPropertyForm(Model model) {
         Property property = new Property();
-        property.setOwner(new User()); // ✅ Prevent null pointer for owner fields
+        property.setOwner(new User());
         model.addAttribute("property", property);
-        return "add-property"; // file name = add-property.html
+        return "add-property";
     }
 
     @PostMapping("/save")
     public String saveProperty(@ModelAttribute Property property,
                                @RequestParam("imageFile") MultipartFile imageFile,
-                               Authentication authentication) throws IOException { // ✅ Add this
-        String email = authentication.getName(); // ✅ Works with `.with(user(...))`
+                               Authentication authentication) throws IOException {
+        String email = authentication.getName();
 
         User currentUser = userRepository.findByEmail(email).orElse(null);
         if (currentUser != null) {
@@ -119,7 +121,6 @@ public class PropertyController {
             return "redirect:/properties/list";
         }
 
-        // ✅ Ensure an owner object exists (for nested form binding)
         if (property.getOwner() == null) {
             property.setOwner(new User());
         }
@@ -135,23 +136,23 @@ public class PropertyController {
 
         Property existing = propertyService.getById(property.getId());
 
-        // ✅ Update owner (if exists)
+
         if (existing.getOwner() == null) {
             existing.setOwner(new User());
         }
 
         existing.getOwner().setFullName(property.getOwner().getFullName());
         existing.getOwner().setEmail(property.getOwner().getEmail());
-        userRepository.save(existing.getOwner()); // ✅ save user
+        userRepository.save(existing.getOwner());
 
-        // ✅ Update basic property fields
+
         existing.setTitle(property.getTitle());
         existing.setDescription(property.getDescription());
         existing.setPrice(property.getPrice());
         existing.setType(property.getType());
         existing.setLocation(property.getLocation());
 
-        // ✅ Image
+
         if (imageFile != null && !imageFile.isEmpty()) {
             String imageUrl = imageUploadService.uploadImage(imageFile);
             existing.setImageUrl(imageUrl);
