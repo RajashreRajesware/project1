@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-box {
+            display: inline-block;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #d9534f; }
+        p { color: #555; }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="error-box">
+    <h1 th:text="${error}">Error Occurred</h1>
+    <h3 th:text="'Status: ' + ${status}"></h3>
+    <p th:text="${message}">An unexpected error occurred. Please try again later.</p>
+    <a href="/">Go Back Home</a>
+</div>
+</body>
+</html>

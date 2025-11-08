@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | RealEstate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to right, #4B6CB7, #182848);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: #fff;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 35px;
+        }
+        a.button {
+            display: inline-block;
+            margin: 12px;
+            padding: 12px 28px;
+            background-color: #4B6CB7;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        a.button:hover {
+            background-color: #395591;
+            transform: translateY(-2px);
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Welcome to RealEstate</h2>
+
+    <div class="buttons">
+        <a th:href="@{/properties/list}" class="button">Browse Properties</a>
+        <a th:href="@{/properties/add}" class="button">Add Property</a>
+        <a th:href="@{/properties/search}" class="button">Search Properties</a>
+        <a th:href="@{/logout}" class="button">Logout</a>
+    </div>
+
+    <footer>© 2025 RealEstate . All Rights Reserved.</footer>
+</div>
+</body>
+</html>

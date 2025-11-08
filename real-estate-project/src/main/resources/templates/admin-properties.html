@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Properties | RealEstate Admin</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+        }
+        .container {
+            width: 95%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #4B6CB7;
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #4B6CB7;
+            color: white;
+        }
+        a.btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            margin-right: 6px;
+        }
+        .approve { background-color: #28a745; }
+        .reject { background-color: #dc3545; }
+        .delete { background-color: #6c757d; }
+        a.btn:hover { opacity: 0.9; }
+
+        /* ✅ Back Button */
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #4B6CB7;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .back-btn:hover { background-color: #395591; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Manage Properties</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Owner Name</th>
+            <th>Owner Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${properties}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.title}"></td>
+            <td th:text="'₹' + ${p.price}"></td>
+            <td th:text="${p.location}"></td>
+            <td th:text="${p.owner != null ? p.owner.fullName : 'N/A'}"></td>
+            <td th:text="${p.owner != null ? p.owner.email : 'N/A'}"></td>
+            <td th:text="${p.status}"></td>
+
+            <td>
+                <a th:href="@{'/admin/properties/approve/' + ${p.id}}" class="btn approve">Approve</a>
+                <a th:href="@{'/admin/properties/reject/' + ${p.id}}" class="btn reject">Reject</a>
+                <a th:href="@{'/admin/properties/delete/' + ${p.id}}" class="btn delete">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- ✅ Corrected Link -->
+    <div style="text-align: center;">
+        <a th:href="@{/admin/dashboard}" class="back-btn">Back to Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Listings | RealEstate </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4B6CB7;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+
+       .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 360px));
+    gap: 25px;
+    justify-content: center;
+}
+
+/* Center single property card */
+.grid:has(.card:only-child) {
+    justify-content: center;
+}
+
+/* Limit card width for single result */
+.card:only-child {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Slightly taller but proportional image */
+.card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 16px;
+            text-align: left;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .card-content p {
+            margin: 4px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .owner-info {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .owner-info strong {
+            color: #4B6CB7;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px 3px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-view {
+            background-color: #4B6CB7;
+        }
+
+        .btn-view:hover {
+            background-color: #395591;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+        }
+
+        .btn-edit:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-back, .btn-search {
+            background-color: #4B6CB7;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 15px 8px;
+        }
+
+        .btn-back:hover, .btn-search:hover {
+            background-color: #395591;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive fix for single card */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card img {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Available Properties</h2>
+
+    <div class="grid">
+        <div th:each="p : ${properties}" class="card">
+            <img th:src="${p.imageUrl}" alt="Property Image">
+            <div class="card-content">
+                <h3 th:text="${p.title}"></h3>
+                <p><strong>Type:</strong> <span th:text="${p.type}"></span></p>
+                <p><strong>Price:</strong> ₹<span th:text="${p.price}"></span></p>
+                <p><strong>Location:</strong> <span th:text="${p.location}"></span></p>
+
+                <div class="owner-info">
+                    <p><strong>Owner:</strong> <span th:text="${p.owner != null ? p.owner.fullName : 'N/A'}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${p.owner != null ? p.owner.email : 'N/A'}"></span></p>
+                </div>
+
+                <a th:href="@{'/properties/view/' + ${p.id}}" class="btn btn-view">View Details</a>
+                <a th:href="@{'/properties/edit/' + ${p.id}}" class="btn btn-edit">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a th:href="@{/properties/search}" class="btn-search">🔍 Back to Search</a>
+        <a th:href="@{/dashboard}" class="btn-back">⬅ Back to Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

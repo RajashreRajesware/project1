@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Properties | RealEstate </title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4B6CB7, #182848);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 550px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+            color: #2f4b7c;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #4B6CB7;
+            box-shadow: 0 0 5px rgba(75, 108, 183, 0.4);
+            outline: none;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px;
+            background: linear-gradient(to right, #4B6CB7, #182848);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #395591, #0f173a);
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 22px;
+            background: linear-gradient(to right, #999, #666);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(to right, #777, #444);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Search Properties</h2>
+
+    <form th:action="@{/properties/list}" method="get">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter city or area">
+
+        <label for="price">Max Price (₹):</label>
+        <input type="number" id="price" name="price" placeholder="Enter max price">
+
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+            <option value="">-- Select Type --</option>
+            <option value="Sale">Sale</option>
+            <option value="Rent">Rent</option>
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <a th:href="@{/dashboard}" class="btn-back">⬅ Back to Dashboard</a>
+</div>
+</body>
+</html>

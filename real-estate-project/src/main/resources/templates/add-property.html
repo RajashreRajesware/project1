@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Property | RealEstate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            width: 100%;
+            background-color: #4B6CB7;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #395591; }
+        a.back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #555;
+            text-decoration: none;
+        }
+        a.back-btn:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Add New Property</h2>
+
+    <!-- ✅ Correct form binding for add -->
+    <form th:action="@{/properties/save}" th:object="${property}" method="post" enctype="multipart/form-data">
+
+        <label>Owner Name:</label>
+        <input type="text" th:field="*{owner.fullName}" placeholder="Enter owner name" required />
+
+        <label>Owner Email:</label>
+        <input type="email" th:field="*{owner.email}" placeholder="Enter owner email" required />
+
+        <label>Title:</label>
+        <input type="text" th:field="*{title}" placeholder="Property title" required />
+
+        <label>Description:</label>
+        <textarea th:field="*{description}" placeholder="Property details" rows="3" required></textarea>
+
+        <label>Type:</label>
+        <select th:field="*{type}" required>
+            <option value="SALE">Sale</option>
+            <option value="RENT">Rent</option>
+        </select>
+
+        <label>Price:</label>
+        <input type="number" th:field="*{price}" step="0.01" placeholder="Enter price" required />
+
+        <label>Location:</label>
+        <input type="text" th:field="*{location}" placeholder="Enter location" required />
+
+        <label>Image:</label>
+        <input type="file" name="imageFile" accept="image/*" />
+
+        <button type="submit">Save Property</button>
+    </form>
+
+    <a th:href="@{/dashboard}" class="back-btn">← Back to Dashboard</a>
+</div>
+</body>
+</html>

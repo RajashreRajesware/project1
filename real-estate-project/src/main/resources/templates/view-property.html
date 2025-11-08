@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Property | RealEstate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 600px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 25px;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #4B6CB7;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 15px;
+            margin: 6px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            margin: 8px 6px;
+        }
+
+        .btn-blue {
+            background-color: #4B6CB7;
+        }
+
+        .btn-blue:hover {
+            background-color: #395591;
+        }
+
+        .btn-green {
+            background-color: #28a745;
+        }
+
+        .btn-green:hover {
+            background-color: #1e7e34;
+        }
+
+        .btn-gray {
+            background-color: #6c757d;
+        }
+
+        .btn-gray:hover {
+            background-color: #5a6268;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img th:src="${property.imageUrl}" alt="Property Image">
+
+    <h2 th:text="${property.title}"></h2>
+    <p><strong>Type:</strong> <span th:text="${property.type}"></span></p>
+    <p><strong>Price:</strong> ₹<span th:text="${property.price}"></span></p>
+    <p><strong>Location:</strong> <span th:text="${property.location}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${property.description}"></span></p>
+
+    <hr>
+
+    <p><strong>Owner:</strong>
+        <span th:text="${property.owner != null ? property.owner.fullName : 'N/A'}"></span></p>
+    <p><strong>Email:</strong>
+        <span th:text="${property.owner != null ? property.owner.email : 'N/A'}"></span></p>
+
+    <hr>
+
+    <!-- ✅ Added Edit Button -->
+    <a th:href="@{'/properties/edit/' + ${property.id}}" class="btn btn-green">Edit</a>
+
+    <!-- Existing buttons -->
+    <a th:href="@{/properties/list}" class="btn btn-blue">Back to List</a>
+    <a th:href="@{/dashboard}" class="btn btn-gray">Back to Dashboard</a>
+</div>
+</body>
+</html>

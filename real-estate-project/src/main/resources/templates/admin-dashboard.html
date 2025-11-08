@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | RealEstate</title>
+    <style>
+        /* 🌄 Global Reset & Font */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #eef1f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* 🌈 Header Bar */
+        header {
+            background: linear-gradient(90deg, #4B6CB7, #182848);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        /* 📦 Dashboard Container */
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* 📊 Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #4B6CB7, #395591);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 220px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+
+        .card p {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* 🔗 Navigation Buttons */
+        .links {
+            margin-top: 20px;
+        }
+
+        .links a {
+            background-color: #4B6CB7;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .links a:hover {
+            background-color: #395591;
+            transform: scale(1.05);
+        }
+
+        /* 📱 Responsive Layout */
+        @media (max-width: 600px) {
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>RealEstate Admin Dashboard</h1>
+</header>
+
+<div class="container">
+    <div class="stats">
+        <div class="card">
+            <h3>Total Properties</h3>
+            <p th:text="${propertyCount}">0</p>
+        </div>
+        <div class="card">
+            <h3>Total Users</h3>
+            <p th:text="${userCount}">0</p>
+        </div>
+    </div>
+
+    <div class="links">
+        <a th:href="@{/admin/properties}">🏠 Manage Properties</a>
+        <a th:href="@{/admin/users}">👥 View Users</a>
+        <a th:href="@{/logout}">🚪 Logout</a>
+    </div>
+</div>
+</body>
+</html>

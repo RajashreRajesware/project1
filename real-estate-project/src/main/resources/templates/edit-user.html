@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User | RealEstate Admin</title>
+    <style>
+        body {
+            background-color: #f5f6fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #4B6CB7;
+            margin-bottom: 25px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4B6CB7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #395591;
+        }
+        a.back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #4B6CB7;
+            text-decoration: none;
+        }
+        a.back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Edit User</h2>
+    <form th:action="@{/admin/users/update}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Full Name</label>
+        <input type="text" th:field="*{fullName}" required>
+        <label>Email</label>
+        <input type="email" th:field="*{email}" required>
+        <label>Role</label>
+        <select th:field="*{role}">
+            <option value="CUSTOMER">CUSTOMER</option>
+            <option value="ADMIN">ADMIN</option>
+        </select>
+        <button type="submit">Update User</button>
+    </form>
+    <div style="text-align:center;">
+        <a th:href="@{/admin/users}" class="back">Back to Users</a>
+    </div>
+</div>
+</body>
+</html>

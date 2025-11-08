@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | RealEstate</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', Arial, sans-serif;
+          background-color: #f5f6fa;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+
+        .register-container {
+          width: 400px;
+          background: #fff;
+          padding: 40px 35px;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+          text-align: center;
+          color: #4B6CB7;
+          margin-bottom: 30px;
+        }
+
+        input, select, button {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 15px;
+          outline: none;
+          transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+          border-color: #4B6CB7;
+          box-shadow: 0 0 4px rgba(75,108,183,0.4);
+        }
+
+        select {
+          background-color: #fff;
+          color: #333;
+          cursor: pointer;
+        }
+
+        .signup-btn {
+          background-color: #4B6CB7;
+          color: white;
+          border: none;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+          background-color: #395591;
+        }
+
+        p {
+          text-align: center;
+          margin-top: 20px;
+          color: #555;
+          font-size: 14px;
+        }
+
+        a {
+          color: #4B6CB7;
+          text-decoration: none;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="register-container">
+    <h2>Create Account</h2>
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <input type="text" th:field="*{fullName}" placeholder="Full Name" required>
+        <input type="email" th:field="*{email}" placeholder="Email" required>
+        <input type="password" th:field="*{password}" placeholder="Password" required>
+
+        <!-- Simple role select -->
+        <select th:field="*{role}" required>
+            <option value="" disabled selected>Select Role</option>
+            <option value="CUSTOMER">Customer</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit" class="signup-btn">Sign Up</button>
+
+        <p>Already have an account? <a th:href="@{/login}">Login</a></p>
+    </form>
+</div>
+</body>
+</html>
